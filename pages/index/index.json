@@ -1,0 +1,8 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "funnyEat",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F5F5F5",
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 50
+}

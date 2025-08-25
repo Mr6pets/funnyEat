@@ -1,0 +1,126 @@
+<!--pages/favorites/favorites.wxml-->
+<view class="favorites-container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">我的收藏</text>
+    <text class="page-subtitle">{{favoritesList.length}}道收藏菜品</text>
+  </view>
+
+  <!-- 操作栏 -->
+  <view class="action-bar" wx:if="{{favoritesList.length > 0}}">
+    <view class="sort-tabs">
+      <text 
+        class="sort-tab {{currentSort === 'time' ? 'active' : ''}}" 
+        bindtap="onSortTap" 
+        data-sort="time"
+      >
+        按时间
+      </text>
+      <text 
+        class="sort-tab {{currentSort === 'name' ? 'active' : ''}}" 
+        bindtap="onSortTap" 
+        data-sort="name"
+      >
+        按名称
+      </text>
+      <text 
+        class="sort-tab {{currentSort === 'rating' ? 'active' : ''}}" 
+        bindtap="onSortTap" 
+        data-sort="rating"
+      >
+        按评分
+      </text>
+    </view>
+    <text class="manage-btn" bindtap="onToggleManage">{{isManaging ? '完成' : '管理'}}</text>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="favorites-list" wx:if="{{sortedList.length > 0}}">
+    <view 
+      class="favorite-item {{isManaging ? 'managing' : ''}}" 
+      wx:for="{{sortedList}}" 
+      wx:key="id"
+      bindtap="onFavoriteTap"
+      data-item="{{item}}"
+    >
+      <!-- 选择框 -->
+      <view class="select-box {{item.selected ? 'selected' : ''}}" wx:if="{{isManaging}}" 
+            bindtap="onSelectItem" data-item-id="{{item.id}}" catchtap="stopPropagation">
+        <text class="select-icon">{{item.selected ? '✓' : ''}}</text>
+      </view>
+      
+      <image class="favorite-image" src="{{item.dish.imageUrl}}" mode="aspectFill" />
+      <view class="favorite-content">
+        <view class="favorite-header">
+          <text class="favorite-name">{{item.dish.name}}</text>
+          <view class="favorite-rating">
+            <text class="rating-text">⭐ {{item.dish.rating}}</text>
+          </view>
+        </view>
+        <text class="favorite-desc">{{item.dish.description}}</text>
+        <view class="favorite-tags">
+          <text class="favorite-tag" wx:for="{{item.dish.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+        </view>
+        <view class="favorite-meta">
+          <text class="favorite-meta-item">⏱️ {{item.dish.cookingTime}}分钟</text>
+          <text class="favorite-meta-item">🔥 {{item.dish.calories}}卡</text>
+          <text class="favorite-meta-item">收藏于 {{item.timeText}}</text>
+        </view>
+      </view>
+      <view class="favorite-actions" wx:if="{{!isManaging}}">
+        <text 
+          class="favorite-remove" 
+          bindtap="onRemoveFavorite" 
+          data-item-id="{{item.id}}"
+          catchtap="stopPropagation"
+        >
+          💔
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 批量操作栏 -->
+  <view class="batch-actions" wx:if="{{isManaging && favoritesList.length > 0}}">
+    <view class="batch-left">
+      <text class="select-all" bindtap="onSelectAll">
+        {{selectedCount === favoritesList.length ? '取消全选' : '全选'}}
+      </text>
+      <text class="selected-count">已选择 {{selectedCount}} 项</text>
+    </view>
+    <button class="batch-delete" bindtap="onBatchDelete" disabled="{{selectedCount === 0}}">
+      删除选中
+    </button>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{sortedList.length === 0 && !isLoading}}">
+    <text class="empty-icon">💔</text>
+    <text class="empty-title">暂无收藏菜品</text>
+    <text class="empty-subtitle">去发现一些美味的菜品收藏吧</text>
+    <button class="empty-btn" bindtap="onGoDiscover">去发现</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{isLoading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>
+
+<!-- 删除确认弹窗 -->
+<view class="modal-overlay {{showDeleteModal ? 'show' : ''}}" bindtap="onCloseDeleteModal">
+  <view class="delete-modal" catchtap="stopPropagation">
+    <view class="delete-header">
+      <text class="delete-title">{{deleteType === 'single' ? '取消收藏' : '批量删除'}}</text>
+    </view>
+    <view class="delete-content">
+      <text class="delete-text">
+        {{deleteType === 'single' ? '确定要取消收藏这道菜品吗？' : `确定要删除选中的 ${selectedCount} 道菜品吗？`}}
+      </text>
+    </view>
+    <view class="delete-actions">
+      <button class="delete-btn-secondary" bindtap="onCloseDeleteModal">取消</button>
+      <button class="delete-btn-primary" bindtap="onConfirmDelete">确定</button>
+    </view>
+  </view>
+</view>

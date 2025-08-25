@@ -1,0 +1,36 @@
+<!--components/dish-card/dish-card.wxml-->
+<view class="dish-card {{size}}" bindtap="onCardTap">
+  <image class="dish-image" src="{{dish.imageUrl}}" mode="aspectFill" />
+  
+  <!-- 收藏按钮 -->
+  <view class="favorite-btn {{dish.isFavorite ? 'active' : ''}}" wx:if="{{showFavorite}}" 
+        bindtap="onFavoriteTap" catchtap="stopPropagation">
+    <text class="favorite-icon">{{dish.isFavorite ? '❤️' : '🤍'}}</text>
+  </view>
+  
+  <!-- 评分标签 -->
+  <view class="rating-badge" wx:if="{{showRating && dish.rating}}">
+    <text class="rating-text">⭐ {{dish.rating}}</text>
+  </view>
+  
+  <view class="dish-content">
+    <view class="dish-header">
+      <text class="dish-name">{{dish.name}}</text>
+      <text class="dish-time" wx:if="{{showTime}}">⏱️ {{dish.cookingTime}}分钟</text>
+    </view>
+    
+    <text class="dish-description" wx:if="{{showDescription}}">{{dish.description}}</text>
+    
+    <!-- 标签 -->
+    <view class="dish-tags" wx:if="{{showTags && dish.tags && dish.tags.length > 0}}">
+      <text class="dish-tag" wx:for="{{dish.tags.slice(0, 3)}}" wx:key="*this">{{item}}</text>
+    </view>
+    
+    <!-- 元信息 -->
+    <view class="dish-meta" wx:if="{{showMeta}}">
+      <text class="meta-item" wx:if="{{dish.cookingTime}}">⏱️ {{dish.cookingTime}}分钟</text>
+      <text class="meta-item" wx:if="{{dish.calories}}">🔥 {{dish.calories}}卡</text>
+      <text class="meta-item" wx:if="{{dish.difficulty}}">📊 {{dish.difficulty}}</text>
+    </view>
+  </view>
+</view>

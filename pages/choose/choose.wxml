@@ -1,0 +1,208 @@
+<!--pages/choose/choose.wxml-->
+<view class="choose-container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">{{pageTitle || '选择菜品'}}</text>
+    <text class="page-subtitle">{{pageSubtitle || '根据你的喜好推荐'}}</text>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="filter-section">
+    <view class="filter-header">
+      <text class="filter-title">筛选条件</text>
+      <text class="filter-reset" bindtap="onResetFilters">重置</text>
+    </view>
+    
+    <!-- 菜品分类 -->
+    <view class="filter-group">
+      <text class="filter-label">菜品分类</text>
+      <view class="filter-tags">
+        <text 
+          class="filter-tag {{filters.category === item.id ? 'active' : ''}}" 
+          wx:for="{{categories}}" 
+          wx:key="id"
+          bindtap="onFilterTap"
+          data-type="category"
+          data-value="{{item.id}}"
+        >
+          {{item.icon}} {{item.name}}
+        </text>
+      </view>
+    </view>
+
+    <!-- 菜系选择 -->
+    <view class="filter-group">
+      <text class="filter-label">菜系</text>
+      <view class="filter-tags">
+        <text 
+          class="filter-tag {{filters.cuisine === item.id ? 'active' : ''}}" 
+          wx:for="{{cuisines}}" 
+          wx:key="id"
+          bindtap="onFilterTap"
+          data-type="cuisine"
+          data-value="{{item.id}}"
+        >
+          {{item.icon}} {{item.name}}
+        </text>
+      </view>
+    </view>
+
+    <!-- 制作难度 -->
+    <view class="filter-group">
+      <text class="filter-label">制作难度</text>
+      <view class="filter-tags">
+        <text 
+          class="filter-tag {{filters.difficulty === item.id ? 'active' : ''}}" 
+          wx:for="{{difficultyOptions}}" 
+          wx:key="id"
+          bindtap="onFilterTap"
+          data-type="difficulty"
+          data-value="{{item.id}}"
+        >
+          {{item.name}}
+        </text>
+      </view>
+    </view>
+
+    <!-- 制作时间 -->
+    <view class="filter-group">
+      <text class="filter-label">制作时间</text>
+      <view class="filter-tags">
+        <text 
+          class="filter-tag {{filters.cookingTime === item.time ? 'active' : ''}}" 
+          wx:for="{{cookingTimeOptions}}" 
+          wx:key="id"
+          bindtap="onFilterTap"
+          data-type="cookingTime"
+          data-value="{{item.time}}"
+        >
+          {{item.name}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button 
+      class="action-btn action-btn-secondary" 
+      bindtap="onRandomChoice"
+      disabled="{{isLoading}}"
+    >
+      <text class="action-btn-icon">🎲</text>
+      <text>随机推荐</text>
+    </button>
+    <button 
+      class="action-btn action-btn-primary" 
+      bindtap="onFilterSearch"
+      disabled="{{isLoading}}"
+    >
+      <text class="action-btn-icon">🔍</text>
+      <text>筛选搜索</text>
+    </button>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="results-section" wx:if="{{searchResults.length > 0 || isLoading}}">
+    <view class="results-header">
+      <text class="results-title">搜索结果</text>
+      <text class="results-count">共{{searchResults.length}}道菜</text>
+    </view>
+    
+    <!-- 加载状态 -->
+    <view class="loading-container" wx:if="{{isLoading}}">
+      <text class="loading-text">正在搜索中...</text>
+    </view>
+    
+    <!-- 结果列表 -->
+    <view class="results-list" wx:else>
+      <view 
+        class="result-item" 
+        wx:for="{{searchResults}}" 
+        wx:key="id"
+        bindtap="onResultTap"
+        data-dish="{{item}}"
+      >
+        <image class="result-image" src="{{item.imageUrl}}" mode="aspectFill" />
+        <view class="result-content">
+          <view class="result-header">
+            <text class="result-name">{{item.name}}</text>
+            <view class="result-rating">
+              <text class="result-rating-text">⭐ {{item.rating}}</text>
+            </view>
+          </view>
+          <text class="result-description">{{item.description}}</text>
+          <view class="result-tags">
+            <text class="result-tag" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+          </view>
+          <view class="result-meta">
+            <text class="result-meta-item">⏱️ {{item.cookingTime}}分钟</text>
+            <text class="result-meta-item">🔥 {{item.calories}}卡</text>
+            <text class="result-meta-item">📊 {{item.difficulty}}</text>
+          </view>
+        </view>
+        <view class="result-actions">
+          <text class="result-favorite {{item.isFavorite ? 'active' : ''}}" 
+                bindtap="onToggleFavorite" 
+                data-dish-id="{{item.id}}"
+                catchtap="stopPropagation">
+            {{item.isFavorite ? '❤️' : '🤍'}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{showEmpty}}">
+    <text class="empty-icon">🍽️</text>
+    <text class="empty-title">暂无符合条件的菜品</text>
+    <text class="empty-subtitle">试试调整筛选条件或随机推荐</text>
+    <button class="empty-btn" bindtap="onRandomChoice">随机推荐</button>
+  </view>
+
+  <!-- 推荐提示 -->
+  <view class="tips-section" wx:if="{{searchResults.length === 0 && !isLoading}}">
+    <view class="tip-item">
+      <text class="tip-icon">💡</text>
+      <text class="tip-text">不知道选什么？试试随机推荐功能</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-icon">🎯</text>
+      <text class="tip-text">设置筛选条件，找到最适合的菜品</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-icon">⭐</text>
+      <text class="tip-text">收藏喜欢的菜品，下次更容易找到</text>
+    </view>
+  </view>
+</view>
+
+<!-- 随机结果弹窗 -->
+<view class="modal-overlay {{showRandomResult ? 'show' : ''}}" bindtap="onCloseRandomResult">
+  <view class="random-modal" catchtap="stopPropagation">
+    <view class="random-header">
+      <text class="random-title">随机推荐</text>
+      <text class="random-close" bindtap="onCloseRandomResult">×</text>
+    </view>
+    <view class="random-content" wx:if="{{randomDish}}">
+      <image class="random-image" src="{{randomDish.imageUrl}}" mode="aspectFill" />
+      <view class="random-info">
+        <text class="random-dish-name">{{randomDish.name}}</text>
+        <text class="random-dish-desc">{{randomDish.description}}</text>
+        <view class="random-tags">
+          <text class="random-tag" wx:for="{{randomDish.tags}}" wx:key="*this">{{item}}</text>
+        </view>
+        <view class="random-meta">
+          <text class="random-meta-item">⏱️ {{randomDish.cookingTime}}分钟</text>
+          <text class="random-meta-item">🔥 {{randomDish.calories}}卡</text>
+          <text class="random-meta-item">⭐ {{randomDish.rating}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="random-actions">
+      <button class="random-btn random-btn-secondary" bindtap="onRandomChoice">再来一次</button>
+      <button class="random-btn random-btn-primary" bindtap="onViewRandomDetail">查看详情</button>
+    </view>
+  </view>
+</view>

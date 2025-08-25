@@ -1,0 +1,215 @@
+/* components/empty-state/empty-state.wxss */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80rpx 40rpx;
+  min-height: 400rpx;
+}
+
+/* 图标区域 */
+.empty-icon-wrapper {
+  margin-bottom: 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  opacity: 0.6;
+  display: block;
+}
+
+.empty-image {
+  width: 200rpx;
+  height: 200rpx;
+  opacity: 0.6;
+}
+
+/* 文字区域 */
+.empty-content {
+  margin-bottom: 40rpx;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 15rpx;
+  line-height: 1.4;
+}
+
+.empty-description {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  display: block;
+  line-height: 1.5;
+  max-width: 500rpx;
+}
+
+/* 操作按钮 */
+.empty-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.empty-btn {
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  padding: 20rpx 40rpx;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.empty-btn:active {
+  transform: scale(0.98);
+}
+
+.empty-btn.primary {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.3);
+}
+
+.empty-btn.secondary {
+  background: white;
+  color: var(--text-primary);
+  border: 2rpx solid var(--border-color);
+}
+
+.empty-btn.ghost {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2rpx solid var(--primary-color);
+}
+
+/* 尺寸变体 */
+.empty-state.small {
+  padding: 60rpx 30rpx;
+  min-height: 300rpx;
+}
+
+.empty-state.small .empty-icon {
+  font-size: 80rpx;
+}
+
+.empty-state.small .empty-image {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.empty-state.small .empty-title {
+  font-size: 28rpx;
+}
+
+.empty-state.small .empty-description {
+  font-size: 24rpx;
+}
+
+.empty-state.small .empty-btn {
+  font-size: 26rpx;
+  padding: 15rpx 30rpx;
+}
+
+.empty-state.large {
+  padding: 120rpx 50rpx;
+  min-height: 600rpx;
+}
+
+.empty-state.large .empty-icon {
+  font-size: 160rpx;
+}
+
+.empty-state.large .empty-image {
+  width: 250rpx;
+  height: 250rpx;
+}
+
+.empty-state.large .empty-title {
+  font-size: 36rpx;
+}
+
+.empty-state.large .empty-description {
+  font-size: 28rpx;
+}
+
+.empty-state.large .empty-btn {
+  font-size: 30rpx;
+  padding: 25rpx 50rpx;
+}
+
+/* 主题变体 */
+.empty-state.light {
+  background: white;
+}
+
+.empty-state.gray {
+  background: var(--background-color);
+}
+
+.empty-state.transparent {
+  background: transparent;
+}
+
+/* 动画效果 */
+.empty-state {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.empty-icon {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 60%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10rpx);
+  }
+  80% {
+    transform: translateY(-5rpx);
+  }
+}
+
+/* 响应式适配 */
+@media (max-width: 375px) {
+  .empty-state {
+    padding: 60rpx 30rpx;
+  }
+  
+  .empty-icon {
+    font-size: 100rpx;
+  }
+  
+  .empty-image {
+    width: 180rpx;
+    height: 180rpx;
+  }
+  
+  .empty-title {
+    font-size: 30rpx;
+  }
+  
+  .empty-description {
+    font-size: 24rpx;
+  }
+  
+  .empty-btn {
+    font-size: 26rpx;
+    padding: 18rpx 35rpx;
+  }
+}

@@ -1,0 +1,198 @@
+<!--pages/profile/profile.wxml-->
+<view class="profile-container">
+  <!-- 用户信息区域 -->
+  <view class="user-section">
+    <view class="user-info">
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill" bindtap="onGetUserInfo" />
+      <view class="user-details">
+        <text class="user-name">{{userInfo.nickName || '点击登录'}}</text>
+        <text class="user-subtitle">{{userInfo.nickName ? '美食探索者' : '登录后享受更多功能'}}</text>
+      </view>
+      <view class="user-action">
+        <text class="action-icon">›</text>
+      </view>
+    </view>
+    
+    <!-- 统计数据 -->
+    <view class="stats-section">
+      <view class="stat-item" bindtap="onNavigateToHistory">
+        <text class="stat-number">{{stats.historyCount}}</text>
+        <text class="stat-label">历史记录</text>
+      </view>
+      <view class="stat-item" bindtap="onNavigateToFavorites">
+        <text class="stat-number">{{stats.favoriteCount}}</text>
+        <text class="stat-label">收藏菜品</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">{{stats.cookingCount}}</text>
+        <text class="stat-label">制作次数</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷功能 -->
+  <view class="quick-actions">
+    <view class="action-grid">
+      <view class="action-item" bindtap="onNavigateToHistory">
+        <view class="action-icon-wrapper" style="background-color: #E3F2FD;">
+          <text class="action-icon">📝</text>
+        </view>
+        <text class="action-text">历史记录</text>
+      </view>
+      <view class="action-item" bindtap="onNavigateToFavorites">
+        <view class="action-icon-wrapper" style="background-color: #FCE4EC;">
+          <text class="action-icon">❤️</text>
+        </view>
+        <text class="action-text">我的收藏</text>
+      </view>
+      <view class="action-item" bindtap="onNavigateToSettings">
+        <view class="action-icon-wrapper" style="background-color: #F3E5F5;">
+          <text class="action-text">⚙️</text>
+        </view>
+        <text class="action-text">偏好设置</text>
+      </view>
+      <view class="action-item" bindtap="onRandomChoice">
+        <view class="action-icon-wrapper" style="background-color: #FFF3E0;">
+          <text class="action-icon">🎲</text>
+        </view>
+        <text class="action-text">随机推荐</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu-section">
+    <view class="menu-group">
+      <view class="menu-item" bindtap="onNavigateToHistory">
+        <view class="menu-icon">📝</view>
+        <text class="menu-text">历史记录</text>
+        <view class="menu-badge" wx:if="{{stats.historyCount > 0}}">{{stats.historyCount}}</view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="onNavigateToFavorites">
+        <view class="menu-icon">❤️</view>
+        <text class="menu-text">我的收藏</text>
+        <view class="menu-badge" wx:if="{{stats.favoriteCount > 0}}">{{stats.favoriteCount}}</view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="onNavigateToSettings">
+        <view class="menu-icon">⚙️</view>
+        <text class="menu-text">偏好设置</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+    
+    <view class="menu-group">
+      <view class="menu-item" bindtap="onShareApp">
+        <view class="menu-icon">📤</view>
+        <text class="menu-text">分享应用</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="onFeedback">
+        <view class="menu-icon">💬</view>
+        <text class="menu-text">意见反馈</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="onAbout">
+        <view class="menu-icon">ℹ️</view>
+        <text class="menu-text">关于我们</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最近浏览 -->
+  <view class="recent-section" wx:if="{{recentDishes.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">最近浏览</text>
+      <text class="section-more" bindtap="onNavigateToHistory">查看全部</text>
+    </view>
+    
+    <scroll-view class="recent-scroll" scroll-x="true" show-scrollbar="false">
+      <view class="recent-list">
+        <view 
+          class="recent-item" 
+          wx:for="{{recentDishes}}" 
+          wx:key="id"
+          bindtap="onRecentTap"
+          data-dish="{{item}}"
+        >
+          <image class="recent-image" src="{{item.dish.imageUrl}}" mode="aspectFill" />
+          <view class="recent-info">
+            <text class="recent-name">{{item.dish.name}}</text>
+            <text class="recent-time">{{item.timeText}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 推荐菜品 -->
+  <view class="recommend-section" wx:if="{{recommendDishes.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">为你推荐</text>
+      <text class="section-subtitle">基于你的偏好</text>
+    </view>
+    
+    <view class="recommend-list">
+      <view 
+        class="recommend-item" 
+        wx:for="{{recommendDishes}}" 
+        wx:key="id"
+        bindtap="onRecommendTap"
+        data-dish="{{item}}"
+      >
+        <image class="recommend-image" src="{{item.imageUrl}}" mode="aspectFill" />
+        <view class="recommend-content">
+          <text class="recommend-name">{{item.name}}</text>
+          <text class="recommend-desc">{{item.description}}</text>
+          <view class="recommend-meta">
+            <text class="recommend-meta-item">⏱️ {{item.cookingTime}}分钟</text>
+            <text class="recommend-meta-item">⭐ {{item.rating}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 用户信息授权弹窗 -->
+<view class="modal-overlay {{showAuthModal ? 'show' : ''}}" bindtap="onCloseAuthModal">
+  <view class="auth-modal" catchtap="stopPropagation">
+    <view class="auth-header">
+      <text class="auth-title">获取用户信息</text>
+    </view>
+    <view class="auth-content">
+      <image class="auth-icon" src="/images/auth-icon.png" mode="aspectFit" />
+      <text class="auth-text">为了给您提供更好的个性化服务，需要获取您的基本信息</text>
+      <view class="auth-benefits">
+        <text class="benefit-item">• 个性化菜品推荐</text>
+        <text class="benefit-item">• 保存浏览历史和收藏</text>
+        <text class="benefit-item">• 同步偏好设置</text>
+      </view>
+    </view>
+    <view class="auth-actions">
+      <button class="auth-btn auth-btn-secondary" bindtap="onCloseAuthModal">暂不授权</button>
+      <button class="auth-btn auth-btn-primary" open-type="getUserProfile" bindgetuserprofile="onGetUserProfile">授权登录</button>
+    </view>
+  </view>
+</view>
+
+<!-- 分享弹窗 -->
+<view class="modal-overlay {{showShareModal ? 'show' : ''}}" bindtap="onCloseShareModal">
+  <view class="share-modal" catchtap="stopPropagation">
+    <view class="share-header">
+      <text class="share-title">分享给朋友</text>
+      <text class="share-close" bindtap="onCloseShareModal">×</text>
+    </view>
+    <view class="share-content">
+      <text class="share-text">分享 funnyEat 给朋友，一起探索美食世界！</text>
+      <view class="share-options">
+        <button class="share-btn" open-type="share">
+          <text class="share-btn-icon">💬</text>
+          <text class="share-btn-text">分享给好友</text>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

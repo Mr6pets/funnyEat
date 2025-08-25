@@ -1,0 +1,203 @@
+<!--pages/detail/detail.wxml-->
+<view class="detail-container">
+  <!-- 菜品图片轮播 -->
+  <view class="image-section">
+    <swiper class="dish-swiper" indicator-dots="{{dishImages.length > 1}}" autoplay="{{dishImages.length > 1}}" interval="3000" duration="500">
+      <swiper-item wx:for="{{dishImages}}" wx:key="*this">
+        <image class="dish-image" src="{{item}}" mode="aspectFill" bindtap="onPreviewImage" data-url="{{item}}" />
+      </swiper-item>
+    </swiper>
+    
+    <!-- 返回按钮 -->
+    <view class="back-btn" bindtap="onBack">
+      <text class="back-icon">‹</text>
+    </view>
+    
+    <!-- 收藏按钮 -->
+    <view class="favorite-btn {{dish.isFavorite ? 'active' : ''}}" bindtap="onToggleFavorite">
+      <text class="favorite-icon">{{dish.isFavorite ? '❤️' : '🤍'}}</text>
+    </view>
+  </view>
+
+  <!-- 菜品基本信息 -->
+  <view class="info-section">
+    <view class="dish-header">
+      <text class="dish-name">{{dish.name}}</text>
+      <view class="dish-rating">
+        <text class="rating-text">⭐ {{dish.rating}}</text>
+        <text class="favorite-count">{{dish.favoriteCount}}人收藏</text>
+      </view>
+    </view>
+    
+    <text class="dish-description">{{dish.description}}</text>
+    
+    <!-- 标签 -->
+    <view class="dish-tags">
+      <text class="dish-tag" wx:for="{{dish.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+    
+    <!-- 基本信息 -->
+    <view class="dish-meta">
+      <view class="meta-item">
+        <text class="meta-icon">⏱️</text>
+        <text class="meta-label">制作时间</text>
+        <text class="meta-value">{{dish.cookingTime}}分钟</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-icon">📊</text>
+        <text class="meta-label">难度等级</text>
+        <text class="meta-value">{{dish.difficulty}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-icon">🔥</text>
+        <text class="meta-label">热量</text>
+        <text class="meta-value">{{dish.calories}}卡</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 营养信息 -->
+  <view class="nutrition-section" wx:if="{{dish.nutrition}}">
+    <view class="section-header">
+      <text class="section-title">营养信息</text>
+      <text class="section-subtitle">每100g含量</text>
+    </view>
+    
+    <view class="nutrition-grid">
+      <view class="nutrition-item">
+        <text class="nutrition-value">{{dish.nutrition.protein}}g</text>
+        <text class="nutrition-label">蛋白质</text>
+      </view>
+      <view class="nutrition-item">
+        <text class="nutrition-value">{{dish.nutrition.carbs}}g</text>
+        <text class="nutrition-label">碳水化合物</text>
+      </view>
+      <view class="nutrition-item">
+        <text class="nutrition-value">{{dish.nutrition.fat}}g</text>
+        <text class="nutrition-label">脂肪</text>
+      </view>
+      <view class="nutrition-item">
+        <text class="nutrition-value">{{dish.nutrition.fiber}}g</text>
+        <text class="nutrition-label">膳食纤维</text>
+      </view>
+    </view>
+    
+    <view class="suitable-for">
+      <text class="suitable-label">适宜人群：</text>
+      <text class="suitable-text">{{dish.nutrition.suitableFor}}</text>
+    </view>
+  </view>
+
+  <!-- 所需食材 -->
+  <view class="ingredients-section" wx:if="{{dish.ingredients && dish.ingredients.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">所需食材</text>
+      <text class="section-subtitle">{{dish.ingredients.length}}种食材</text>
+    </view>
+    
+    <view class="ingredients-list">
+      <view class="ingredient-item" wx:for="{{dish.ingredients}}" wx:key="*this">
+        <text class="ingredient-dot">•</text>
+        <text class="ingredient-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 制作步骤 -->
+  <view class="steps-section" wx:if="{{dish.steps && dish.steps.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">制作步骤</text>
+      <text class="section-subtitle">{{dish.steps.length}}个步骤</text>
+    </view>
+    
+    <view class="steps-list">
+      <view class="step-item" wx:for="{{dish.steps}}" wx:key="*this">
+        <view class="step-number">{{index + 1}}</view>
+        <text class="step-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 小贴士 -->
+  <view class="tips-section">
+    <view class="section-header">
+      <text class="section-title">制作小贴士</text>
+    </view>
+    
+    <view class="tips-list">
+      <view class="tip-item">
+        <text class="tip-icon">💡</text>
+        <text class="tip-text">食材新鲜度直接影响菜品口感，建议选择当季食材</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">🔥</text>
+        <text class="tip-text">掌握好火候是关键，大火爆炒，小火慢炖</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">⏰</text>
+        <text class="tip-text">提前准备所有食材和调料，制作过程更顺畅</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 相关推荐 -->
+  <view class="related-section" wx:if="{{relatedDishes.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">相关推荐</text>
+      <text class="section-subtitle">你可能还喜欢</text>
+    </view>
+    
+    <scroll-view class="related-scroll" scroll-x="true" show-scrollbar="false">
+      <view class="related-list">
+        <view 
+          class="related-item" 
+          wx:for="{{relatedDishes}}" 
+          wx:key="id"
+          bindtap="onRelatedTap"
+          data-dish="{{item}}"
+        >
+          <image class="related-image" src="{{item.imageUrl}}" mode="aspectFill" />
+          <view class="related-info">
+            <text class="related-name">{{item.name}}</text>
+            <text class="related-time">⏱️ {{item.cookingTime}}分钟</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-actions">
+    <button class="action-btn action-btn-secondary" bindtap="onAddToHistory">
+      <text class="action-btn-icon">📝</text>
+      <text>加入历史</text>
+    </button>
+    <button class="action-btn action-btn-primary" bindtap="onStartCooking">
+      <text class="action-btn-icon">👨‍🍳</text>
+      <text>开始制作</text>
+    </button>
+  </view>
+</view>
+
+<!-- 图片预览遮罩 -->
+<view class="preview-overlay {{showPreview ? 'show' : ''}}" bindtap="onClosePreview">
+  <image class="preview-image" src="{{previewUrl}}" mode="aspectFit" />
+</view>
+
+<!-- 制作确认弹窗 -->
+<view class="modal-overlay {{showCookingModal ? 'show' : ''}}" bindtap="onCloseCookingModal">
+  <view class="cooking-modal" catchtap="stopPropagation">
+    <view class="cooking-header">
+      <text class="cooking-title">开始制作</text>
+      <text class="cooking-close" bindtap="onCloseCookingModal">×</text>
+    </view>
+    <view class="cooking-content">
+      <text class="cooking-text">准备好开始制作《{{dish.name}}》了吗？</text>
+      <text class="cooking-subtitle">预计用时：{{dish.cookingTime}}分钟</text>
+    </view>
+    <view class="cooking-actions">
+      <button class="cooking-btn cooking-btn-secondary" bindtap="onCloseCookingModal">稍后制作</button>
+      <button class="cooking-btn cooking-btn-primary" bindtap="onConfirmCooking">开始制作</button>
+    </view>
+  </view>
+</view>

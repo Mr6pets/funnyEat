@@ -1,0 +1,111 @@
+<!--pages/history/history.wxml-->
+<view class="history-container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">历史记录</text>
+    <text class="page-subtitle">{{historyList.length}}条浏览记录</text>
+  </view>
+
+  <!-- 操作栏 -->
+  <view class="action-bar" wx:if="{{historyList.length > 0}}">
+    <view class="filter-tabs">
+      <text 
+        class="filter-tab {{currentFilter === 'all' ? 'active' : ''}}" 
+        bindtap="onFilterTap" 
+        data-filter="all"
+      >
+        全部
+      </text>
+      <text 
+        class="filter-tab {{currentFilter === 'today' ? 'active' : ''}}" 
+        bindtap="onFilterTap" 
+        data-filter="today"
+      >
+        今天
+      </text>
+      <text 
+        class="filter-tab {{currentFilter === 'week' ? 'active' : ''}}" 
+        bindtap="onFilterTap" 
+        data-filter="week"
+      >
+        本周
+      </text>
+    </view>
+    <text class="clear-btn" bindtap="onClearHistory">清空</text>
+  </view>
+
+  <!-- 历史记录列表 -->
+  <view class="history-list" wx:if="{{filteredList.length > 0}}">
+    <view 
+      class="history-item" 
+      wx:for="{{filteredList}}" 
+      wx:key="id"
+      bindtap="onHistoryTap"
+      data-item="{{item}}"
+    >
+      <image class="history-image" src="{{item.dish.imageUrl}}" mode="aspectFill" />
+      <view class="history-content">
+        <view class="history-header">
+          <text class="history-name">{{item.dish.name}}</text>
+          <text class="history-time">{{item.timeText}}</text>
+        </view>
+        <text class="history-desc">{{item.dish.description}}</text>
+        <view class="history-tags">
+          <text class="history-tag" wx:for="{{item.dish.tags}}" wx:key="*this" wx:for-item="tag">{{tag}}</text>
+        </view>
+        <view class="history-meta">
+          <text class="history-meta-item">⏱️ {{item.dish.cookingTime}}分钟</text>
+          <text class="history-meta-item">🔥 {{item.dish.calories}}卡</text>
+          <text class="history-meta-item">来源: {{item.sourceText}}</text>
+        </view>
+      </view>
+      <view class="history-actions">
+        <text 
+          class="history-favorite {{item.dish.isFavorite ? 'active' : ''}}" 
+          bindtap="onToggleFavorite" 
+          data-dish-id="{{item.dish.id}}"
+          catchtap="stopPropagation"
+        >
+          {{item.dish.isFavorite ? '❤️' : '🤍'}}
+        </text>
+        <text 
+          class="history-delete" 
+          bindtap="onDeleteHistory" 
+          data-item-id="{{item.id}}"
+          catchtap="stopPropagation"
+        >
+          🗑️
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{filteredList.length === 0 && !isLoading}}">
+    <text class="empty-icon">📝</text>
+    <text class="empty-title">{{historyList.length === 0 ? '暂无浏览记录' : '暂无符合条件的记录'}}</text>
+    <text class="empty-subtitle">{{historyList.length === 0 ? '去首页看看有什么好吃的吧' : '试试切换其他筛选条件'}}</text>
+    <button class="empty-btn" bindtap="onGoHome" wx:if="{{historyList.length === 0}}">去首页看看</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{isLoading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>
+
+<!-- 清空确认弹窗 -->
+<view class="modal-overlay {{showClearModal ? 'show' : ''}}" bindtap="onCloseClearModal">
+  <view class="clear-modal" catchtap="stopPropagation">
+    <view class="clear-header">
+      <text class="clear-title">清空历史记录</text>
+    </view>
+    <view class="clear-content">
+      <text class="clear-text">确定要清空所有历史记录吗？此操作不可恢复。</text>
+    </view>
+    <view class="clear-actions">
+      <button class="clear-btn-secondary" bindtap="onCloseClearModal">取消</button>
+      <button class="clear-btn-primary" bindtap="onConfirmClear">确定清空</button>
+    </view>
+  </view>
+</view>

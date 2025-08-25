@@ -1,0 +1,386 @@
+/* pages/history/history.wxss */
+.history-container {
+  padding-bottom: 120rpx;
+  background: var(--background-color);
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.page-header {
+  padding: 40rpx 30rpx 30rpx;
+  text-align: center;
+  background: white;
+  margin-bottom: 20rpx;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.page-subtitle {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  display: block;
+}
+
+/* 操作栏 */
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: white;
+  margin-bottom: 20rpx;
+  box-shadow: var(--shadow-light);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 30rpx;
+}
+
+.filter-tab {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.filter-tab.active {
+  color: var(--primary-color);
+  background: rgba(255, 107, 53, 0.1);
+  font-weight: 600;
+}
+
+.filter-tab:active {
+  transform: scale(0.95);
+}
+
+.clear-btn {
+  font-size: 26rpx;
+  color: var(--text-light);
+  padding: 10rpx 20rpx;
+  border: 1rpx solid var(--border-color);
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
+}
+
+.clear-btn:active {
+  background: #F5F5F5;
+  transform: scale(0.95);
+}
+
+/* 历史记录列表 */
+.history-list {
+  padding: 0 30rpx;
+}
+
+.history-item {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: var(--shadow-light);
+  display: flex;
+  gap: 20rpx;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.history-item:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-medium);
+}
+
+.history-image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  flex-shrink: 0;
+}
+
+.history-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160rpx;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10rpx;
+}
+
+.history-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+  margin-right: 10rpx;
+  line-height: 1.3;
+}
+
+.history-time {
+  font-size: 22rpx;
+  color: var(--text-light);
+  flex-shrink: 0;
+}
+
+.history-desc {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 15rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.history-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-bottom: 15rpx;
+}
+
+.history-tag {
+  background: #FFF5F2;
+  color: var(--primary-color);
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+}
+
+.history-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.history-meta-item {
+  font-size: 22rpx;
+  color: var(--text-light);
+}
+
+.history-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.history-favorite,
+.history-delete {
+  font-size: 32rpx;
+  padding: 10rpx;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-favorite:active,
+.history-delete:active {
+  transform: scale(1.2);
+}
+
+.history-favorite.active {
+  animation: heartbeat 0.6s ease;
+}
+
+.history-delete:active {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  display: block;
+  margin-bottom: 40rpx;
+  opacity: 0.6;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 15rpx;
+}
+
+.empty-subtitle {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 40rpx;
+  line-height: 1.5;
+}
+
+.empty-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 40rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+/* 加载状态 */
+.loading-state {
+  text-align: center;
+  padding: 80rpx 0;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: var(--text-light);
+}
+
+/* 清空确认弹窗 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.clear-modal {
+  width: 600rpx;
+  background: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.show .clear-modal {
+  transform: scale(1);
+}
+
+.clear-header {
+  padding: 30rpx;
+  text-align: center;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.clear-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.clear-content {
+  padding: 40rpx 30rpx;
+  text-align: center;
+}
+
+.clear-text {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.clear-actions {
+  display: flex;
+  padding: 30rpx;
+  gap: 20rpx;
+}
+
+.clear-btn-secondary,
+.clear-btn-primary {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.clear-btn-secondary {
+  background: #F5F5F5;
+  color: var(--text-secondary);
+}
+
+.clear-btn-primary {
+  background: #FF4444;
+  color: white;
+}
+
+/* 动画效果 */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* 滑动删除效果 */
+.history-item.deleting {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* 响应式适配 */
+@media (max-width: 375px) {
+  .history-item {
+    padding: 15rpx;
+  }
+  
+  .history-image {
+    width: 140rpx;
+    height: 140rpx;
+  }
+  
+  .history-content {
+    min-height: 140rpx;
+  }
+  
+  .history-name {
+    font-size: 28rpx;
+  }
+  
+  .filter-tabs {
+    gap: 20rpx;
+  }
+  
+  .filter-tab {
+    font-size: 26rpx;
+    padding: 8rpx 16rpx;
+  }
+}

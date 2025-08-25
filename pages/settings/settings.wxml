@@ -1,0 +1,191 @@
+<!--pages/settings/settings.wxml-->
+<view class="settings-container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">偏好设置</text>
+    <text class="page-subtitle">个性化你的美食推荐</text>
+  </view>
+
+  <!-- 菜系偏好 -->
+  <view class="setting-section">
+    <view class="section-header">
+      <text class="section-title">喜欢的菜系</text>
+      <text class="section-subtitle">选择你偏爱的菜系类型</text>
+    </view>
+    <view class="cuisine-grid">
+      <view 
+        class="cuisine-item {{preferences.favoriteCuisines.includes(item.id) ? 'selected' : ''}}" 
+        wx:for="{{cuisineOptions}}" 
+        wx:key="id"
+        bindtap="onCuisineTap"
+        data-cuisine="{{item.id}}"
+      >
+        <text class="cuisine-icon">{{item.icon}}</text>
+        <text class="cuisine-name">{{item.name}}</text>
+        <text class="cuisine-check">{{preferences.favoriteCuisines.includes(item.id) ? '✓' : ''}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 制作难度 -->
+  <view class="setting-section">
+    <view class="section-header">
+      <text class="section-title">制作难度</text>
+      <text class="section-subtitle">选择你能接受的制作难度</text>
+    </view>
+    <view class="difficulty-options">
+      <view 
+        class="difficulty-item {{preferences.difficultyLevel === item.id ? 'selected' : ''}}" 
+        wx:for="{{difficultyOptions}}" 
+        wx:key="id"
+        bindtap="onDifficultyTap"
+        data-difficulty="{{item.id}}"
+      >
+        <view class="difficulty-info">
+          <text class="difficulty-name">{{item.name}}</text>
+          <text class="difficulty-desc">{{item.description}}</text>
+        </view>
+        <text class="difficulty-radio">{{preferences.difficultyLevel === item.id ? '●' : '○'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 制作时间 -->
+  <view class="setting-section">
+    <view class="section-header">
+      <text class="section-title">制作时间</text>
+      <text class="section-subtitle">最多愿意花费的制作时间：{{preferences.maxCookingTime}}分钟</text>
+    </view>
+    <view class="time-slider">
+      <slider 
+        class="slider" 
+        min="15" 
+        max="120" 
+        step="15" 
+        value="{{preferences.maxCookingTime}}" 
+        bindchange="onTimeChange"
+        activeColor="#FF6B35"
+        backgroundColor="#E5E5E5"
+        block-size="24"
+        block-color="#FF6B35"
+      />
+      <view class="time-labels">
+        <text class="time-label">15分钟</text>
+        <text class="time-label">120分钟</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 忌口食材 -->
+  <view class="setting-section">
+    <view class="section-header">
+      <text class="section-title">忌口食材</text>
+      <text class="section-subtitle">选择你不喜欢或过敏的食材</text>
+    </view>
+    <view class="ingredient-tags">
+      <text 
+        class="ingredient-tag {{preferences.dislikedIngredients.includes(item) ? 'selected' : ''}}" 
+        wx:for="{{ingredientOptions}}" 
+        wx:key="*this"
+        bindtap="onIngredientTap"
+        data-ingredient="{{item}}"
+      >
+        {{item}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 饮食偏好 -->
+  <view class="setting-section">
+    <view class="section-header">
+      <text class="section-title">饮食偏好</text>
+      <text class="section-subtitle">特殊的饮食需求</text>
+    </view>
+    <view class="diet-options">
+      <view class="diet-item" bindtap="onVegetarianToggle">
+        <view class="diet-info">
+          <text class="diet-name">素食主义</text>
+          <text class="diet-desc">只推荐素食菜品</text>
+        </view>
+        <switch 
+          class="diet-switch" 
+          checked="{{preferences.vegetarianOnly}}" 
+          bindchange="onVegetarianToggle"
+          color="#FF6B35"
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 推荐设置 -->
+  <view class="setting-section">
+    <view class="section-header">
+      <text class="section-title">推荐设置</text>
+      <text class="section-subtitle">个性化推荐相关设置</text>
+    </view>
+    <view class="recommend-options">
+      <view class="recommend-item" bindtap="onSmartRecommendToggle">
+        <view class="recommend-info">
+          <text class="recommend-name">智能推荐</text>
+          <text class="recommend-desc">基于浏览历史优化推荐</text>
+        </view>
+        <switch 
+          class="recommend-switch" 
+          checked="{{preferences.smartRecommend}}" 
+          bindchange="onSmartRecommendToggle"
+          color="#FF6B35"
+        />
+      </view>
+      <view class="recommend-item" bindtap="onSeasonalToggle">
+        <view class="recommend-info">
+          <text class="recommend-name">时令推荐</text>
+          <text class="recommend-desc">优先推荐当季菜品</text>
+        </view>
+        <switch 
+          class="recommend-switch" 
+          checked="{{preferences.seasonalRecommend}}" 
+          bindchange="onSeasonalToggle"
+          color="#FF6B35"
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="action-btn action-btn-secondary" bindtap="onResetSettings">恢复默认</button>
+    <button class="action-btn action-btn-primary" bindtap="onSaveSettings">保存设置</button>
+  </view>
+
+  <!-- 设置说明 -->
+  <view class="tips-section">
+    <view class="tip-item">
+      <text class="tip-icon">💡</text>
+      <text class="tip-text">设置偏好后，系统会为你推荐更符合口味的菜品</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-icon">🔄</text>
+      <text class="tip-text">偏好设置会实时生效，随时可以修改</text>
+    </view>
+    <view class="tip-item">
+      <text class="tip-icon">📊</text>
+      <text class="tip-text">系统会学习你的使用习惯，不断优化推荐效果</text>
+    </view>
+  </view>
+</view>
+
+<!-- 重置确认弹窗 -->
+<view class="modal-overlay {{showResetModal ? 'show' : ''}}" bindtap="onCloseResetModal">
+  <view class="reset-modal" catchtap="stopPropagation">
+    <view class="reset-header">
+      <text class="reset-title">恢复默认设置</text>
+    </view>
+    <view class="reset-content">
+      <text class="reset-text">确定要恢复所有设置到默认状态吗？此操作不可撤销。</text>
+    </view>
+    <view class="reset-actions">
+      <button class="reset-btn-secondary" bindtap="onCloseResetModal">取消</button>
+      <button class="reset-btn-primary" bindtap="onConfirmReset">确定恢复</button>
+    </view>
+  </view>
+</view>

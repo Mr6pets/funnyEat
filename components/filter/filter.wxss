@@ -1,0 +1,339 @@
+/* components/filter/filter.wxss */
+.filter-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+}
+
+/* 遮罩层 */
+.filter-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 筛选面板 */
+.filter-panel {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* 位置样式 */
+.filter-panel.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 80vh;
+  border-radius: 20rpx 20rpx 0 0;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.filter-panel.top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-height: 80vh;
+  border-radius: 0 0 20rpx 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.filter-panel.left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 80vw;
+  max-width: 600rpx;
+  border-radius: 0 20rpx 20rpx 0;
+  box-shadow: 4rpx 0 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.filter-panel.right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80vw;
+  max-width: 600rpx;
+  border-radius: 20rpx 0 0 20rpx;
+  box-shadow: -4rpx 0 20rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 主题样式 */
+.filter-panel.light {
+  background: white;
+}
+
+.filter-panel.dark {
+  background: #1a1a1a;
+  color: white;
+}
+
+/* 头部 */
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 40rpx;
+  border-bottom: 1rpx solid var(--border-color);
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.filter-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 30rpx;
+}
+
+.filter-reset {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
+}
+
+.filter-reset:active {
+  background: var(--background-color);
+}
+
+.filter-confirm {
+  font-size: 28rpx;
+  color: var(--primary-color);
+  font-weight: 500;
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
+}
+
+.filter-confirm:active {
+  background: rgba(255, 107, 53, 0.1);
+}
+
+/* 内容区域 */
+.filter-content {
+  flex: 1;
+  padding: 20rpx 40rpx;
+  overflow-y: auto;
+}
+
+/* 筛选分组 */
+.filter-section {
+  margin-bottom: 50rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+/* 标签容器 */
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+/* 筛选标签 */
+.filter-tag {
+  display: inline-block;
+  padding: 15rpx 30rpx;
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  background: var(--background-color);
+  border: 2rpx solid transparent;
+  border-radius: 30rpx;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.filter-tag:active {
+  transform: scale(0.95);
+}
+
+.filter-tag.selected {
+  color: white;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 4rpx 12rpx rgba(255, 107, 53, 0.3);
+}
+
+/* 底部操作栏 */
+.filter-footer {
+  display: flex;
+  gap: 20rpx;
+  padding: 30rpx 40rpx;
+  border-top: 1rpx solid var(--border-color);
+  background: white;
+  position: sticky;
+  bottom: 0;
+}
+
+.footer-btn {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.footer-btn:active {
+  transform: scale(0.98);
+}
+
+.reset-btn {
+  background: var(--background-color);
+  color: var(--text-primary);
+}
+
+.confirm-btn {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.3);
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.filter-panel.top {
+  animation: slideInFromTop 0.3s ease-out;
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.filter-panel.left {
+  animation: slideInFromLeft 0.3s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.filter-panel.right {
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* 暗色主题适配 */
+.filter-panel.dark .filter-header {
+  background: #1a1a1a;
+  border-bottom-color: #333;
+}
+
+.filter-panel.dark .section-title {
+  color: white;
+}
+
+.filter-panel.dark .filter-tag {
+  color: #ccc;
+  background: #333;
+}
+
+.filter-panel.dark .filter-tag.selected {
+  color: white;
+  background: var(--primary-color);
+}
+
+.filter-panel.dark .filter-footer {
+  background: #1a1a1a;
+  border-top-color: #333;
+}
+
+.filter-panel.dark .reset-btn {
+  background: #333;
+  color: white;
+}
+
+/* 响应式适配 */
+@media (max-width: 375px) {
+  .filter-header {
+    padding: 25rpx 30rpx;
+  }
+  
+  .filter-title {
+    font-size: 30rpx;
+  }
+  
+  .filter-content {
+    padding: 15rpx 30rpx;
+  }
+  
+  .section-title {
+    font-size: 26rpx;
+  }
+  
+  .filter-tag {
+    padding: 12rpx 25rpx;
+    font-size: 24rpx;
+  }
+  
+  .filter-footer {
+    padding: 25rpx 30rpx;
+  }
+  
+  .footer-btn {
+    height: 70rpx;
+    font-size: 26rpx;
+  }
+}

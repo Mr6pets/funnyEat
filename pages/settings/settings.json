@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "偏好设置",
+  "enablePullDownRefresh": false,
+  "backgroundColor": "#F5F5F5",
+  "backgroundTextStyle": "dark"
+}

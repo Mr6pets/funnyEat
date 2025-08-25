@@ -1,0 +1,131 @@
+<!--pages/index/index.wxml-->
+<view class="index-container">
+  <!-- 顶部问候语 -->
+  <view class="greeting-section">
+    <view class="greeting-text">
+      <text class="greeting-main">今天吃什么？</text>
+      <text class="greeting-sub">让我来帮你决定吧 🍽️</text>
+    </view>
+  </view>
+
+  <!-- 今日推荐 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">今日推荐</text>
+      <text class="section-subtitle">为你精心挑选</text>
+    </view>
+    <scroll-view class="recommendation-scroll" scroll-x="true" show-scrollbar="false">
+      <view class="recommendation-list">
+        <view 
+          class="recommendation-card" 
+          wx:for="{{todayRecommendations}}" 
+          wx:key="id"
+          bindtap="onRecommendationTap"
+          data-dish="{{item}}"
+        >
+          <image class="recommendation-image" src="{{item.dish.imageUrl}}" mode="aspectFill" />
+          <view class="recommendation-overlay">
+            <view class="recommendation-tag">{{item.tag}}</view>
+            <view class="recommendation-info">
+              <text class="recommendation-name">{{item.dish.name}}</text>
+              <text class="recommendation-reason">{{item.reason}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 快速选择 -->
+  <view class="section">
+    <view class="quick-choice-container">
+      <view class="quick-choice-content">
+        <text class="quick-choice-title">不知道吃什么？</text>
+        <text class="quick-choice-subtitle">摇一摇，让运气来决定</text>
+        <button 
+          class="quick-choice-btn {{isShaking ? 'shaking' : ''}}" 
+          bindtap="onQuickChoice"
+          disabled="{{isShaking}}"
+        >
+          <text class="quick-choice-icon">🎲</text>
+          <text class="quick-choice-text">{{isShaking ? '正在选择...' : '摇一摇'}}</text>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类浏览 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">分类浏览</text>
+      <text class="section-subtitle">按类型选择</text>
+    </view>
+    <view class="category-grid">
+      <view 
+        class="category-item" 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        bindtap="onCategoryTap"
+        data-category="{{item}}"
+      >
+        <view class="category-icon-wrapper" style="background-color: {{item.color}}20;">
+          <text class="category-icon">{{item.icon}}</text>
+        </view>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 菜系推荐 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">热门菜系</text>
+      <text class="section-subtitle">地方特色</text>
+    </view>
+    <view class="cuisine-list">
+      <view 
+        class="cuisine-item" 
+        wx:for="{{cuisines}}" 
+        wx:key="id"
+        bindtap="onCuisineTap"
+        data-cuisine="{{item}}"
+      >
+        <text class="cuisine-icon">{{item.icon}}</text>
+        <view class="cuisine-info">
+          <text class="cuisine-name">{{item.name}}</text>
+          <text class="cuisine-desc">{{item.description}}</text>
+        </view>
+        <text class="cuisine-arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 快速选择结果弹窗 -->
+<view class="modal-overlay {{showResult ? 'show' : ''}}" bindtap="onCloseResult">
+  <view class="result-modal" catchtap="stopPropagation">
+    <view class="result-header">
+      <text class="result-title">今天就吃这个吧！</text>
+      <text class="result-close" bindtap="onCloseResult">×</text>
+    </view>
+    <view class="result-content" wx:if="{{selectedDish}}">
+      <image class="result-image" src="{{selectedDish.imageUrl}}" mode="aspectFill" />
+      <view class="result-info">
+        <text class="result-dish-name">{{selectedDish.name}}</text>
+        <text class="result-dish-desc">{{selectedDish.description}}</text>
+        <view class="result-tags">
+          <text class="result-tag" wx:for="{{selectedDish.tags}}" wx:key="*this">{{item}}</text>
+        </view>
+        <view class="result-meta">
+          <text class="result-meta-item">⏱️ {{selectedDish.cookingTime}}分钟</text>
+          <text class="result-meta-item">🔥 {{selectedDish.calories}}卡</text>
+          <text class="result-meta-item">⭐ {{selectedDish.rating}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="result-actions">
+      <button class="result-btn result-btn-secondary" bindtap="onQuickChoice">再摇一次</button>
+      <button class="result-btn result-btn-primary" bindtap="onViewDetail">查看详情</button>
+    </view>
+  </view>
+</view>
