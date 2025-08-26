@@ -2,14 +2,46 @@
 <view class="settings-container">
   <!-- 页面头部 -->
   <view class="page-header">
-    <text class="page-title">偏好设置</text>
-    <text class="page-subtitle">个性化你的美食推荐</text>
+    <text class="page-title">{{t('settings.title')}}</text>
+    <text class="page-subtitle">{{t('settings.preferences')}}</text>
+  </view>
+
+  <!-- 语言设置 -->
+  <view class="setting-section">
+    <view class="section-header">
+      <text class="section-title">{{t('settings.language')}}</text>
+      <text class="section-subtitle">选择界面显示语言</text>
+    </view>
+    <view class="language-options">
+      <view 
+        class="language-item {{currentLanguage === 'zh' ? 'selected' : ''}}" 
+        bindtap="onLanguageTap"
+        data-language="zh"
+      >
+        <view class="language-info">
+          <text class="language-name">{{t('settings.chinese')}}</text>
+          <text class="language-desc">简体中文</text>
+        </view>
+        <text class="language-radio">{{currentLanguage === 'zh' ? '●' : '○'}}</text>
+      </view>
+      <view 
+        class="language-item {{currentLanguage === 'en' ? 'selected' : ''}}" 
+        bindtap="onLanguageTap"
+        data-language="en"
+      >
+        <view class="language-info">
+          <text class="language-name">{{t('settings.english')}}</text>
+          <text class="language-desc">English</text>
+        </view>
+        <text class="language-radio">{{currentLanguage === 'en' ? '●' : '○'}}</text>
+      </view>
+    </view>
   </view>
 
   <!-- 菜系偏好 -->
   <view class="setting-section">
     <view class="section-header">
-      <text class="section-title">喜欢的菜系</text>
+      <text class="section-title">{{t('settings.favoriteCuisines')}}</text>
       <text class="section-subtitle">选择你偏爱的菜系类型</text>
     </view>
     <view class="cuisine-grid">
@@ -30,7 +62,7 @@
   <!-- 制作难度 -->
   <view class="setting-section">
     <view class="section-header">
-      <text class="section-title">制作难度</text>
+      <text class="section-title">{{t('settings.difficultyLevel')}}</text>
       <text class="section-subtitle">选择你能接受的制作难度</text>
     </view>
     <view class="difficulty-options">

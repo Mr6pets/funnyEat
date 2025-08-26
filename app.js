@@ -1,4 +1,6 @@
 // app.js
+const { i18n } = require('./utils/i18n')
+
 App({
   onLaunch() {
     // 展示本地存储能力
@@ -27,6 +29,8 @@ App({
   
   globalData: {
     userInfo: null,
+    // 国际化实例
+    i18n: i18n,
     // 用户偏好设置
     userPreferences: {
       favoriteCuisines: [],
@@ -75,5 +79,30 @@ App({
       this.globalData.userPreferences = stored
     }
     return this.globalData.userPreferences
+  },
+  
+  // 切换语言
+  switchLanguage(lang) {
+    const success = this.globalData.i18n.setLanguage(lang)
+    if (success) {
+      // 触发页面重新渲染
+      const pages = getCurrentPages()
+      pages.forEach(page => {
+        if (page.onLanguageChange && typeof page.onLanguageChange === 'function') {
+          page.onLanguageChange()
+        }
+      })
+    }
+    return success
+  },
+  
+  // 获取当前语言
+  getCurrentLanguage() {
+    return this.globalData.i18n.getCurrentLanguage()
+  },
+  
+  // 获取翻译文本
+  t(key, params) {
+    return this.globalData.i18n.t(key, params)
   }
 })

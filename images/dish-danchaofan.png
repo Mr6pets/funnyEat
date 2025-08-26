@@ -1,0 +1,46 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="300" height="300" fill="#FFF8F0"/>
+  
+  <!-- 盘子 -->
+  <ellipse cx="150" cy="200" rx="120" ry="80" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
+  
+  <!-- 米饭堆 -->
+  <ellipse cx="150" cy="170" rx="90" ry="50" fill="#F7DC6F" opacity="0.8"/>
+  <ellipse cx="150" cy="175" rx="85" ry="45" fill="#F4D03F" opacity="0.6"/>
+  
+  <!-- 米粒细节 -->
+  <ellipse cx="120" cy="160" rx="2" ry="1" fill="#FFFEF7" transform="rotate(30 120 160)"/>
+  <ellipse cx="140" cy="155" rx="2" ry="1" fill="#FFFEF7" transform="rotate(-15 140 155)"/>
+  <ellipse cx="160" cy="165" rx="2" ry="1" fill="#FFFEF7" transform="rotate(45 160 165)"/>
+  <ellipse cx="180" cy="160" rx="2" ry="1" fill="#FFFEF7" transform="rotate(-30 180 160)"/>
+  <ellipse cx="130" cy="175" rx="2" ry="1" fill="#FFFEF7" transform="rotate(60 130 175)"/>
+  <ellipse cx="170" cy="175" rx="2" ry="1" fill="#FFFEF7" transform="rotate(-45 170 175)"/>
+  
+  <!-- 鸡蛋块 -->
+  <ellipse cx="125" cy="165" rx="8" ry="6" fill="#F7DC6F" transform="rotate(20 125 165)"/>
+  <ellipse cx="175" cy="170" rx="10" ry="7" fill="#F4D03F" transform="rotate(-25 175 170)"/>
+  <ellipse cx="150" cy="180" rx="9" ry="6" fill="#F7DC6F" transform="rotate(40 150 180)"/>
+  <ellipse cx="135" cy="185" rx="7" ry="5" fill="#F4D03F" transform="rotate(-10 135 185)"/>
+  
+  <!-- 葱花 -->
+  <rect x="115" y="170" width="6" height="1" rx="0.5" fill="#27AE60" transform="rotate(25 118 170.5)"/>
+  <rect x="155" y="165" width="7" height="1" rx="0.5" fill="#2ECC71" transform="rotate(-20 158.5 165.5)"/>
+  <rect x="170" y="180" width="5" height="1" rx="0.5" fill="#27AE60" transform="rotate(50 172.5 180.5)"/>
+  <rect x="140" y="190" width="6" height="1" rx="0.5" fill="#2ECC71" transform="rotate(-35 143 190.5)"/>
+  
+  <!-- 胡萝卜丁 -->
+  <rect x="145" y="160" width="3" height="3" rx="0.5" fill="#FF8C00" transform="rotate(15 146.5 161.5)"/>
+  <rect x="165" y="175" width="3" height="3" rx="0.5" fill="#FFA500" transform="rotate(-30 166.5 176.5)"/>
+  
+  <!-- 豌豆 -->
+  <circle cx="130" cy="170" r="2" fill="#32CD32"/>
+  <circle cx="160" cy="185" r="2" fill="#228B22"/>
+  
+  <!-- 光泽效果 -->
+  <ellipse cx="150" cy="165" rx="60" ry="30" fill="#FFFFFF" opacity="0.2"/>
+  
+  <!-- 热气 -->
+  <path d="M 120 140 Q 125 130 130 140 Q 135 130 140 140" stroke="#F4D03F" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 160 135 Q 165 125 170 135 Q 175 125 180 135" stroke="#F7DC6F" stroke-width="2" fill="none" opacity="0.4"/>
+</svg>

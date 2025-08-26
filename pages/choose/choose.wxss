@@ -105,7 +105,8 @@
   background: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
-  box-shadow: 0 4rpx 12rpx rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4rpx 12rpx rgba(76, 175, 80, 0.3);
+  font-weight: 600;
 }
 
 /* 操作按钮区域 */

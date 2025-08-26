@@ -114,8 +114,11 @@
       <text class="delete-title">{{deleteType === 'single' ? '取消收藏' : '批量删除'}}</text>
     </view>
     <view class="delete-content">
-      <text class="delete-text">
-        {{deleteType === 'single' ? '确定要取消收藏这道菜品吗？' : `确定要删除选中的 ${selectedCount} 道菜品吗？`}}
+      <text class="delete-text" wx:if="{{deleteType === 'single'}}">
+        确定要取消收藏这道菜品吗？
+      </text>
+      <text class="delete-text" wx:else>
+        确定要删除选中的 {{selectedCount}} 道菜品吗？
       </text>
     </view>
     <view class="delete-actions">

@@ -1,6 +1,7 @@
 // pages/settings/settings.js
 const { cuisines, preferenceOptions } = require('../../data/mockData.js')
 const { showToast, showSuccess, setStorage, getStorage } = require('../../utils/util.js')
+const app = getApp()
 
 Page({
   data: {
@@ -8,6 +9,9 @@ Page({
     cuisineOptions: [],
     difficultyOptions: [],
     ingredientOptions: [],
+    
+    // 语言设置
+    currentLanguage: 'zh',
     
     // 用户偏好设置
     preferences: {
@@ -34,6 +38,7 @@ Page({
     console.log('设置页面加载', options)
     this.initOptionsData()
     this.loadUserPreferences()
+    this.initLanguage()
   },
 
   onShow() {
@@ -185,6 +190,51 @@ Page({
     
     // 记录用户行为
     this.recordUserAction('toggle_seasonal_recommend', { seasonalRecommend })
+  },
+
+  /**
+   * 初始化语言设置
+   */
+  initLanguage() {
+    const currentLanguage = app.getCurrentLanguage()
+    this.setData({ currentLanguage })
+  },
+
+  /**
+   * 语言切换
+   */
+  onLanguageTap(e) {
+    const { language } = e.currentTarget.dataset
+    const success = app.switchLanguage(language)
+    
+    if (success) {
+      this.setData({ currentLanguage: language })
+      showSuccess(language === 'zh' ? '语言已切换为中文' : 'Language switched to English')
+      
+      // 记录用户行为
+      this.recordUserAction('switch_language', { language })
+      
+      // 震动反馈
+      wx.vibrateShort({ type: 'light' })
+    } else {
+      showToast('语言切换失败')
+    }
+  },
+
+  /**
+   * 语言变更回调
+   */
+  onLanguageChange() {
+    // 页面重新渲染时更新语言状态
+    this.initLanguage()
+    this.setData({})
+  },
+
+  /**
+   * 获取翻译文本
+   */
+  t(key, params) {
+    return app.t(key, params)
   },
 
   /**

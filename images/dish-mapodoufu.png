@@ -1,0 +1,39 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="300" height="300" fill="#FFF8F0"/>
+  
+  <!-- 盘子 -->
+  <ellipse cx="150" cy="200" rx="120" ry="80" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
+  
+  <!-- 红油汤汁 -->
+  <ellipse cx="150" cy="170" rx="90" ry="50" fill="#E74C3C" opacity="0.6"/>
+  <ellipse cx="150" cy="175" rx="85" ry="45" fill="#C0392B" opacity="0.4"/>
+  
+  <!-- 豆腐块 -->
+  <rect x="110" y="150" width="25" height="25" rx="2" fill="#FFFEF7" stroke="#F0F0F0" stroke-width="1"/>
+  <rect x="140" y="145" width="28" height="28" rx="2" fill="#FFFEF7" stroke="#F0F0F0" stroke-width="1"/>
+  <rect x="175" y="155" width="26" height="26" rx="2" fill="#FFFEF7" stroke="#F0F0F0" stroke-width="1"/>
+  <rect x="125" y="180" width="24" height="24" rx="2" fill="#FFFEF7" stroke="#F0F0F0" stroke-width="1"/>
+  <rect x="160" y="175" width="27" height="27" rx="2" fill="#FFFEF7" stroke="#F0F0F0" stroke-width="1"/>
+  
+  <!-- 肉末 -->
+  <circle cx="115" cy="165" r="2" fill="#8B4513"/>
+  <circle cx="135" cy="155" r="1.5" fill="#A0522D"/>
+  <circle cx="155" cy="170" r="2" fill="#8B4513"/>
+  <circle cx="170" cy="160" r="1.5" fill="#A0522D"/>
+  <circle cx="145" cy="185" r="2" fill="#8B4513"/>
+  
+  <!-- 花椒粒 -->
+  <circle cx="130" cy="170" r="1" fill="#654321"/>
+  <circle cx="165" cy="165" r="1" fill="#654321"/>
+  <circle cx="180" cy="175" r="1" fill="#654321"/>
+  
+  <!-- 葱花 -->
+  <rect x="120" y="160" width="6" height="1" rx="0.5" fill="#27AE60"/>
+  <rect x="150" y="180" width="7" height="1" rx="0.5" fill="#2ECC71"/>
+  <rect x="175" y="165" width="5" height="1" rx="0.5" fill="#27AE60"/>
+  
+  <!-- 蒸汽效果 -->
+  <path d="M 130 130 Q 135 120 140 130 Q 145 120 150 130" stroke="#E74C3C" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M 160 125 Q 165 115 170 125 Q 175 115 180 125" stroke="#E74C3C" stroke-width="2" fill="none" opacity="0.3"/>
+</svg>

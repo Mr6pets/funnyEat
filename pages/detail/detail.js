@@ -5,7 +5,22 @@ const { showToast, showSuccess, setStorage, getStorage } = require('../../utils/
 Page({
   data: {
     // 菜品信息
-    dish: {},
+    dish: {
+      id: '',
+      name: '',
+      imageUrl: '',
+      description: '',
+      tags: [],
+      ingredients: [],
+      steps: [],
+      nutrition: null,
+      rating: 0,
+      favoriteCount: 0,
+      cookingTime: 0,
+      difficulty: '',
+      calories: 0,
+      isFavorite: false
+    },
     dishImages: [],
     
     // 相关推荐
@@ -22,6 +37,10 @@ Page({
 
   onLoad(options) {
     console.log('详情页面加载', options)
+    
+    // 确保数据结构完整性
+    this.initializeData()
+    
     const { dishId } = options
     if (dishId) {
       this.loadDishDetail(dishId)
@@ -34,6 +53,27 @@ Page({
     }
     
     this.loadFavorites()
+  },
+
+  /**
+   * 初始化数据结构，确保渲染时数据完整性
+   */
+  initializeData() {
+    // 确保所有数据字段都有默认值，避免渲染时undefined错误
+    const initialData = {
+      dish: {
+        ...this.data.dish,
+        tags: this.data.dish.tags || [],
+        ingredients: this.data.dish.ingredients || [],
+        steps: this.data.dish.steps || [],
+        nutrition: this.data.dish.nutrition || null
+      },
+      dishImages: this.data.dishImages || [],
+      relatedDishes: this.data.relatedDishes || [],
+      favoriteIds: this.data.favoriteIds || []
+    }
+    
+    this.setData(initialData)
   },
 
   onShow() {
@@ -56,16 +96,31 @@ Page({
       return
     }
     
-    // 处理图片数组
-    const dishImages = dish.imageUrl ? [dish.imageUrl] : []
+    // 处理图片数组，确保数组结构稳定
+    const dishImages = dish.imageUrl ? [{
+      id: dish.id + '_image_0',
+      url: dish.imageUrl
+    }] : []
+    
+    // 调试信息
+    console.log('详情页面 - 菜品信息:', dish)
+    console.log('详情页面 - 图片数组:', dishImages)
+    console.log('详情页面 - 图片URL:', dish.imageUrl)
     
     // 添加收藏状态
     const favoriteIds = getStorage('userFavorites', []).map(item => item.dishId || item.id)
-    dish.isFavorite = favoriteIds.includes(dish.id)
+    const dishData = {
+      ...dish,
+      isFavorite: favoriteIds.includes(dish.id)
+    }
     
+    // 原子性更新数据，避免渲染过程中数据不一致
     this.setData({
-      dish,
-      dishImages
+      dish: dishData,
+      dishImages: dishImages
+    }, () => {
+      // 验证数据设置后的状态
+      console.log('详情页面 - 设置后的数据:', this.data)
     })
     
     // 设置页面标题
@@ -119,9 +174,17 @@ Page({
     
     // 更新当前菜品的收藏状态
     const { dish } = this.data
-    if (dish.id) {
-      dish.isFavorite = favoriteIds.includes(dish.id)
-      this.setData({ dish, favoriteIds })
+    if (dish && dish.id) {
+      const updatedDish = {
+        ...dish,
+        isFavorite: favoriteIds.includes(dish.id)
+      }
+      this.setData({ 
+        dish: updatedDish, 
+        favoriteIds: favoriteIds 
+      })
+    } else {
+      this.setData({ favoriteIds: favoriteIds })
     }
   },
 
@@ -184,9 +247,12 @@ Page({
     const { url } = e.currentTarget.dataset
     const { dishImages } = this.data
     
+    // 提取图片URL数组
+    const imageUrls = dishImages.map(item => item.url || item)
+    
     wx.previewImage({
       current: url,
-      urls: dishImages
+      urls: imageUrls
     })
   },
 

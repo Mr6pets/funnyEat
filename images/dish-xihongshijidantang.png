@@ -1,0 +1,41 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="300" height="300" fill="#FFF8F0"/>
+  
+  <!-- 汤碗 -->
+  <ellipse cx="150" cy="220" rx="100" ry="60" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
+  <ellipse cx="150" cy="200" rx="95" ry="55" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  
+  <!-- 汤汁 -->
+  <ellipse cx="150" cy="200" rx="85" ry="45" fill="#FF6B35" opacity="0.3"/>
+  <ellipse cx="150" cy="205" rx="80" ry="40" fill="#E74C3C" opacity="0.2"/>
+  
+  <!-- 西红柿块 -->
+  <path d="M 120 180 Q 125 175 130 180 Q 125 185 120 180" fill="#E74C3C"/>
+  <path d="M 170 185 Q 175 180 180 185 Q 175 190 170 185" fill="#C0392B"/>
+  <path d="M 140 195 Q 145 190 150 195 Q 145 200 140 195" fill="#E74C3C"/>
+  
+  <!-- 蛋花 -->
+  <path d="M 110 190 Q 115 185 120 190 Q 115 195 110 190" fill="#F7DC6F" opacity="0.8"/>
+  <path d="M 160 175 Q 165 170 170 175 Q 165 180 160 175" fill="#F4D03F" opacity="0.8"/>
+  <path d="M 180 200 Q 185 195 190 200 Q 185 205 180 200" fill="#F7DC6F" opacity="0.8"/>
+  <path d="M 130 205 Q 135 200 140 205 Q 135 210 130 205" fill="#F4D03F" opacity="0.8"/>
+  
+  <!-- 更多蛋花丝 -->
+  <path d="M 125 185 C 130 183 135 187 140 185" stroke="#F7DC6F" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M 155 195 C 160 193 165 197 170 195" stroke="#F4D03F" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M 145 180 C 150 178 155 182 160 180" stroke="#F7DC6F" stroke-width="2" fill="none" opacity="0.7"/>
+  
+  <!-- 葱花 -->
+  <rect x="135" y="185" width="4" height="1" rx="0.5" fill="#27AE60"/>
+  <rect x="165" y="190" width="5" height="1" rx="0.5" fill="#2ECC71"/>
+  <rect x="175" y="180" width="3" height="1" rx="0.5" fill="#27AE60"/>
+  
+  <!-- 汤面波纹 -->
+  <ellipse cx="150" cy="185" rx="70" ry="5" fill="none" stroke="#FF6B35" stroke-width="1" opacity="0.3"/>
+  <ellipse cx="150" cy="190" rx="60" ry="4" fill="none" stroke="#E74C3C" stroke-width="1" opacity="0.2"/>
+  
+  <!-- 热气 -->
+  <path d="M 130 150 Q 135 140 140 150 Q 145 140 150 150" stroke="#FF6B35" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 160 145 Q 165 135 170 145 Q 175 135 180 145" stroke="#E74C3C" stroke-width="2" fill="none" opacity="0.4"/>
+</svg>

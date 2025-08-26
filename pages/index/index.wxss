@@ -1,7 +1,7 @@
 /* pages/index/index.wxss */
 .index-container {
   padding-bottom: 120rpx;
-  background: linear-gradient(180deg, #FFF5F2 0%, #F5F5F5 100%);
+  background: linear-gradient(180deg, #E8F5E8 0%, #F1F8E9 100%);
   min-height: 100vh;
 }
 
@@ -68,7 +68,7 @@
   width: 280rpx;
   height: 200rpx;
   margin-right: 20rpx;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
   overflow: hidden;
   box-shadow: var(--shadow-medium);
   flex-shrink: 0;
@@ -123,10 +123,11 @@
 .quick-choice-container {
   margin: 0 30rpx;
   background: white;
-  border-radius: 20rpx;
+  border-radius: 32rpx;
   padding: 50rpx 30rpx;
   text-align: center;
   box-shadow: var(--shadow-light);
+  border: 1rpx solid var(--border-color);
 }
 
 .quick-choice-content {
@@ -152,13 +153,13 @@
   width: 200rpx;
   height: 200rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  background: var(--gradient-primary);
   border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba(255, 107, 53, 0.4);
+  box-shadow: 0 8rpx 24rpx rgba(76, 175, 80, 0.4);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -179,7 +180,7 @@
 
 .quick-choice-btn:active {
   transform: scale(0.95);
-  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.4);
+  box-shadow: 0 4rpx 16rpx rgba(76, 175, 80, 0.4);
 }
 
 .quick-choice-btn:active::before {
@@ -216,9 +217,10 @@
   align-items: center;
   padding: 30rpx 20rpx;
   background: white;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
   box-shadow: var(--shadow-light);
   transition: all 0.3s ease;
+  border: 1rpx solid var(--border-color);
 }
 
 .category-item:active {
@@ -256,10 +258,11 @@
   align-items: center;
   padding: 25rpx 30rpx;
   background: white;
-  border-radius: 16rpx;
+  border-radius: 24rpx;
   margin-bottom: 15rpx;
   box-shadow: var(--shadow-light);
   transition: all 0.3s ease;
+  border: 1rpx solid var(--border-color);
 }
 
 .cuisine-item:active {
@@ -321,10 +324,11 @@
 .result-modal {
   width: 600rpx;
   background: white;
-  border-radius: 20rpx;
+  border-radius: 32rpx;
   overflow: hidden;
   transform: scale(0.8);
   transition: all 0.3s ease;
+  border: 1rpx solid var(--border-color);
 }
 
 .modal-overlay.show .result-modal {
@@ -393,7 +397,7 @@
 }
 
 .result-tag {
-  background: #FFF5F2;
+  background: #E8F5E8;
   color: var(--primary-color);
   padding: 8rpx 16rpx;
   border-radius: 20rpx;

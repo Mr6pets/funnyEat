@@ -2,11 +2,34 @@
 <view class="detail-container">
   <!-- 菜品图片轮播 -->
   <view class="image-section">
-    <swiper class="dish-swiper" indicator-dots="{{dishImages.length > 1}}" autoplay="{{dishImages.length > 1}}" interval="3000" duration="500">
-      <swiper-item wx:for="{{dishImages}}" wx:key="*this">
-        <image class="dish-image" src="{{item}}" mode="aspectFill" bindtap="onPreviewImage" data-url="{{item}}" />
+    <swiper 
+      class="dish-swiper" 
+      indicator-dots="{{dishImages.length > 1}}" 
+      autoplay="{{dishImages.length > 1}}" 
+      interval="3000" 
+      duration="500"
+      circular="{{dishImages.length > 1}}"
+      indicator-color="rgba(255,255,255,0.5)"
+      indicator-active-color="#4CAF50"
+      wx:if="{{dishImages && dishImages.length > 0}}"
+    >
+      <swiper-item wx:for="{{dishImages}}" wx:key="id">
+        <image 
+          class="dish-image" 
+          src="{{item.url}}" 
+          mode="aspectFill" 
+          bindtap="onPreviewImage" 
+          data-url="{{item.url}}"
+          lazy-load="{{true}}"
+          show-menu-by-longpress="{{false}}"
+        />
       </swiper-item>
     </swiper>
+    
+    <!-- 无图片时的占位符 -->
+    <view class="no-image-placeholder" wx:else>
+      <text class="no-image-text">暂无图片</text>
+    </view>
     
     <!-- 返回按钮 -->
     <view class="back-btn" bindtap="onBack">
@@ -32,8 +55,8 @@
     <text class="dish-description">{{dish.description}}</text>
     
     <!-- 标签 -->
-    <view class="dish-tags">
-      <text class="dish-tag" wx:for="{{dish.tags}}" wx:key="*this">{{item}}</text>
+    <view class="dish-tags" wx:if="{{dish.tags && dish.tags.length > 0}}">
+      <text class="dish-tag" wx:for="{{dish.tags}}" wx:key="index">{{item}}</text>
     </view>
     
     <!-- 基本信息 -->
@@ -96,7 +119,7 @@
     </view>
     
     <view class="ingredients-list">
-      <view class="ingredient-item" wx:for="{{dish.ingredients}}" wx:key="*this">
+      <view class="ingredient-item" wx:for="{{dish.ingredients}}" wx:key="index">
         <text class="ingredient-dot">•</text>
         <text class="ingredient-text">{{item}}</text>
       </view>
@@ -111,7 +134,7 @@
     </view>
     
     <view class="steps-list">
-      <view class="step-item" wx:for="{{dish.steps}}" wx:key="*this">
+      <view class="step-item" wx:for="{{dish.steps}}" wx:key="index">
         <view class="step-number">{{index + 1}}</view>
         <text class="step-text">{{item}}</text>
       </view>
