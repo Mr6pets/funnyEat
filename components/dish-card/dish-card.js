@@ -108,7 +108,9 @@ Component({
      */
     stopPropagation() {
       // 阻止事件冒泡到父元素
-    }
+    },
+
+
   },
   
   /**

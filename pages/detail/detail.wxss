@@ -43,25 +43,28 @@
   left: 30rpx;
   width: 80rpx;
   height: 80rpx;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
   transition: all 0.3s ease;
+  backdrop-filter: blur(10rpx);
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
 }
 
 .back-btn:active {
   transform: scale(0.9);
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .back-icon {
-  color: white;
+  color: #FFFFFF;
   font-size: 40rpx;
   font-weight: bold;
   margin-left: -5rpx;
+  text-shadow: 0 1rpx 3rpx rgba(0,0,0,0.8);
 }
 
 .favorite-btn {
@@ -589,8 +592,9 @@
 }
 
 .cooking-btn-primary {
-  background: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
   color: white;
+  box-shadow: 0 4rpx 16rpx rgba(255, 107, 53, 0.4);
 }
 
 /* 动画效果 */

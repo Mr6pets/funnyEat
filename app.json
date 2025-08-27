@@ -10,14 +10,14 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#4CAF50",
+    "navigationBarBackgroundColor": "#FF6B35",
     "navigationBarTitleText": "funnyEat",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#F1F8E9"
+    "backgroundColor": "#FFF8F5"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#4CAF50",
+    "selectedColor": "#FF6B35",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

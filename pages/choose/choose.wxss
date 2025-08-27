@@ -102,11 +102,13 @@
 }
 
 .filter-tag.active {
-  background: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
-  box-shadow: 0 4rpx 12rpx rgba(76, 175, 80, 0.3);
+  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  border-color: var(--primary-dark);
+  box-shadow: 0 4rpx 12rpx rgba(76, 175, 80, 0.4);
   font-weight: 600;
+  text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.2);
+  transform: scale(1.05);
 }
 
 /* 操作按钮区域 */

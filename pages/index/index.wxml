@@ -67,11 +67,13 @@
         wx:key="id"
         bindtap="onCategoryTap"
         data-category="{{item}}"
+        data-category-id="{{item.id}}"
+        data-category-name="{{item.name}}"
       >
         <view class="category-icon-wrapper" style="background-color: {{item.color}}20;">
           <text class="category-icon">{{item.icon}}</text>
         </view>
-        <text class="category-name">{{item.name}}</text>
+        <text class="category-name">{{item.name}} ({{item.id}})</text>
       </view>
     </view>
   </view>

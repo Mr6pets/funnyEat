@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片路径测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; border: 1px solid #ccc; padding: 15px; }
+        .test-section h3 { margin-top: 0; }
+        .image-test { margin: 10px 0; }
+        .image-test img { width: 100px; height: 100px; border: 1px solid #ddd; margin-right: 10px; }
+        .status { font-weight: bold; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>funnyEat 图片路径测试</h1>
+    
+    <div class="test-section">
+        <h3>菜品图片测试 (相对路径)</h3>
+        <div class="image-test">
+            <img src="images/dish-gongbaojiding.svg" alt="宫保鸡丁" />
+            <span>宫保鸡丁 - images/dish-gongbaojiding.svg</span>
+            <span class="status" id="status1"></span>
+        </div>
+        <div class="image-test">
+            <img src="images/dish-mapodoufu.svg" alt="麻婆豆腐" />
+            <span>麻婆豆腐 - images/dish-mapodoufu.svg</span>
+            <span class="status" id="status2"></span>
+        </div>
+        <div class="image-test">
+            <img src="images/dish-baiqieji.svg" alt="白切鸡" />
+            <span>白切鸡 - images/dish-baiqieji.svg</span>
+            <span class="status" id="status3"></span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h3>图标图片测试</h3>
+        <div class="image-test">
+            <img src="images/home.png" alt="首页图标" />
+            <span>首页图标 - images/home.png</span>
+            <span class="status" id="status4"></span>
+        </div>
+        <div class="image-test">
+            <img src="images/default-avatar.svg" alt="默认头像" />
+            <span>默认头像 - images/default-avatar.svg</span>
+            <span class="status" id="status5"></span>
+        </div>
+    </div>
+    
+    <script>
+        // 检查图片加载状态
+        const images = document.querySelectorAll('img');
+        images.forEach((img, index) => {
+            const statusElement = document.getElementById(`status${index + 1}`);
+            
+            img.onload = function() {
+                console.log('图片加载成功:', this.src);
+                if (statusElement) {
+                    statusElement.textContent = ' ✓ 加载成功';
+                    statusElement.className = 'status success';
+                }
+            };
+            
+            img.onerror = function() {
+                console.error('图片加载失败:', this.src);
+                if (statusElement) {
+                    statusElement.textContent = ' ✗ 加载失败';
+                    statusElement.className = 'status error';
+                }
+                this.style.backgroundColor = '#ffebee';
+                this.alt = '图片加载失败: ' + this.alt;
+            };
+        });
+        
+        // 页面加载完成后的统计
+        window.onload = function() {
+            setTimeout(() => {
+                const successCount = document.querySelectorAll('.success').length;
+                const errorCount = document.querySelectorAll('.error').length;
+                console.log(`图片加载统计: 成功 ${successCount} 个, 失败 ${errorCount} 个`);
+            }, 2000);
+        };
+    </script>
+</body>
+</html>

@@ -8,23 +8,23 @@ page {
   color: var(--text-primary);
 }
 
-/* 主题色彩变量 - 绿色主题 */
+/* 主题色彩变量 - 橙色主题 */
 :root {
-  --primary-color: #4CAF50;
-  --primary-light: #66BB6A;
-  --primary-dark: #388E3C;
-  --secondary-color: #81C784;
-  --accent-color: #A5D6A7;
-  --background-color: #F1F8E9;
+  --primary-color: #FF6B35;
+  --primary-light: #FF8A65;
+  --primary-dark: #E64A19;
+  --secondary-color: #FFAB91;
+  --accent-color: #FFCCBC;
+  --background-color: #FFF8F5;
   --card-background: #FFFFFF;
-  --text-primary: #2E7D32;
-  --text-secondary: #4CAF50;
-  --text-light: #81C784;
-  --border-color: #C8E6C9;
-  --shadow-light: 0 2rpx 12rpx rgba(76, 175, 80, 0.1);
-  --shadow-medium: 0 4rpx 20rpx rgba(76, 175, 80, 0.15);
-  --gradient-primary: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
-  --gradient-light: linear-gradient(135deg, #A5D6A7 0%, #C8E6C9 100%);
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-light: #999999;
+  --border-color: #E0E0E0;
+  --shadow-light: 0 2rpx 12rpx rgba(255, 107, 53, 0.1);
+  --shadow-medium: 0 4rpx 20rpx rgba(255, 107, 53, 0.15);
+  --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FF8A65 100%);
+  --gradient-light: linear-gradient(135deg, #FFCCBC 0%, #FFE0B2 100%);
 }
 
 /* 通用容器 */
@@ -63,9 +63,12 @@ page {
 }
 
 .btn-primary {
-  background: var(--gradient-primary);
-  color: white;
-  box-shadow: 0 4rpx 12rpx rgba(76, 175, 80, 0.3);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4rpx 16rpx rgba(76, 175, 80, 0.4);
+  font-weight: 600;
+  text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.2);
+  border: 1rpx solid var(--primary-dark);
 }
 
 .btn-primary:active {

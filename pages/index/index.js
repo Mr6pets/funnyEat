@@ -43,10 +43,15 @@ Page({
       }
     })
 
+
+
     this.setData({
       categories,
       cuisines,
       todayRecommendations: processedRecommendations
+    }, () => {
+      console.log('页面数据设置完成:', this.data)
+      console.log('=== 数据设置完成 ===')
     })
   },
 
@@ -217,15 +222,47 @@ Page({
    * 点击分类
    */
   onCategoryTap(e) {
-    const { category } = e.currentTarget.dataset
-    console.log('点击分类:', category)
+    const dataset = e.currentTarget.dataset
+    const { category, categoryId, categoryName } = dataset
+    console.log('点击分类 - 完整数据集:', dataset)
+    console.log('点击分类 - category对象:', category)
+    
+    let finalCategory = category
+    
+    // 如果category对象为空，尝试从单独的属性构建
+    if (!category && categoryId && categoryName) {
+      finalCategory = {
+        id: categoryId,
+        name: categoryName
+      }
+      console.log('使用备用数据构建分类对象:', finalCategory)
+    }
+    
+    // 添加调试信息
+    if (!finalCategory) {
+      console.error('分类数据为空:', dataset)
+      wx.showToast({
+        title: '分类数据错误',
+        icon: 'none'
+      })
+      return
+    }
+    
+    if (!finalCategory.id || !finalCategory.name) {
+      console.error('分类数据不完整:', finalCategory)
+      wx.showToast({
+        title: '分类数据不完整',
+        icon: 'none'
+      })
+      return
+    }
     
     // 记录用户行为
-    this.recordUserAction('browse_category', { category: category.id })
+    this.recordUserAction('browse_category', { category: finalCategory.id })
     
     // 跳转到选择页面，传递分类参数
     wx.navigateTo({
-      url: `/pages/choose/choose?category=${category.id}&categoryName=${category.name}`
+      url: `/pages/choose/choose?category=${finalCategory.id}&categoryName=${encodeURIComponent(finalCategory.name)}`
     })
   },
 
@@ -244,6 +281,8 @@ Page({
       url: `/pages/choose/choose?cuisine=${cuisine.id}&cuisineName=${cuisine.name}`
     })
   },
+
+
 
   /**
    * 记录用户行为

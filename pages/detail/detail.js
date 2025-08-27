@@ -381,6 +381,8 @@ Page({
     // 阻止点击弹窗内容时关闭弹窗
   },
 
+
+
   /**
    * 记录用户行为
    */
@@ -437,7 +439,7 @@ Page({
     return {
       title: `${dish.name} - 来看看这道美味的制作方法！`,
       path: `/pages/detail/detail?dishId=${dish.id}`,
-      imageUrl: dish.imageUrl || '/images/share-cover.jpg'
+      imageUrl: dish.imageUrl || 'images/share-cover.jpg'
     }
   },
 
@@ -448,7 +450,7 @@ Page({
     const { dish } = this.data
     return {
       title: `${dish.name} - funnyEat美食推荐`,
-      imageUrl: dish.imageUrl || '/images/share-cover.jpg'
+      imageUrl: dish.imageUrl || 'images/share-cover.jpg'
     }
   },
 
